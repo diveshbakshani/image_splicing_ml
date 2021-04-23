@@ -52,12 +52,12 @@ def create_model(filepath):
     regressor = DecisionTreeRegressor(random_state=0)
     regressor.fit(X_train, y_train)
 
-    filename = filename+"_model.sav"
-    pickle.dump(regressor, open("models\\",filename, 'wb'))
+    filename = "models\\"+filename+"_model.sav"
+    pickle.dump(regressor, open(filename, 'wb'))
 
     # open model and test giving results
 
-    loaded_model = pickle.load(open("models\\",filename, 'rb'))
+    loaded_model = pickle.load(open(filename, 'rb'))
     y_pred = loaded_model.predict(X_test)
     print(filename, "Results")
     print(metrics.classification_report(y_test, y_pred))
