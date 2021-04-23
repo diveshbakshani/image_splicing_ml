@@ -37,7 +37,7 @@ def create_model(filepath):
         features.append("B"+str(x))
     print(features)
 
-    #Plot correlation graph
+    # Plot correlation graph
 
     plt.matshow(df.corr())
     plt.xticks(np.arange(58), df.columns, rotation = 90)
@@ -53,11 +53,11 @@ def create_model(filepath):
     regressor.fit(X_train, y_train)
 
     filename = filename+"_model.sav"
-    pickle.dump(regressor, open(filename, 'wb'))
+    pickle.dump(regressor, open("models\\",filename, 'wb'))
 
-    #open model and test
+    # open model and test giving results
 
-    loaded_model = pickle.load(open(filename, 'rb'))
+    loaded_model = pickle.load(open("models\\",filename, 'rb'))
     y_pred = loaded_model.predict(X_test)
     print(filename, "Results")
     print(metrics.classification_report(y_test, y_pred))
