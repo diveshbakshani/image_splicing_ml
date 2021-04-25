@@ -1,9 +1,11 @@
 import os
 from datetime import datetime
-from flask import Flask, render_template, redirect, request, flash, url_for, g
+from flask import Flask, render_template, redirect, request, flash, g
 from werkzeug.utils import secure_filename
 
 import sqlite3
+
+from predict import predict
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -51,9 +53,10 @@ def home():
         # spliced = 1/False
 
         #Extract results here
-        casia_r = True
-        columbia_r = False
-        columbiauc_r = False
+        boolarray = predict(filename)
+        casia_r = boolarray[0]
+        columbia_r = boolarray[1]
+        columbiauc_r = boolarray[2]
 
         print(predict_result)
         #TODO: check logical correctness
@@ -81,14 +84,27 @@ def login():
     cur = g.db.cursor()
     error = None;
     data=[]
+    delete = False
     if request.method == "POST":
         if request.form.get('pass') != 'login':
             error = "invalid password"
         else:
             cur.execute("SELECT * FROM PREDICTIONS")
             data = cur.fetchall()
-    return render_template('admin.html',error=error, data=data)
+            g.db.commit()
+            delete = True
 
+    return render_template('admin.html',error=error, data=data, delete=delete)
+
+
+@app.route("/delete")
+def delete():
+    cur = g.db.cursor()
+    cur.execute("DELETE FROM PREDICTIONS")
+    g.db.commit()
+    message = "Database cleared"
+    print(message)
+    return render_template('admin.html', message=message)
 
 @app.route("/about")
 def about():
