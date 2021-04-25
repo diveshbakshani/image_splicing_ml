@@ -32,8 +32,8 @@ def before_request():
 
 def home():
     cur = g.db.cursor()
-    predict_result = 'Spliced/Unspliced'
     results = []
+    predict_result="None"
     if request.form:
         if 'file' not in request.files:
             flash('No file part')
@@ -58,12 +58,13 @@ def home():
         columbia_r = boolarray[1]
         columbiauc_r = boolarray[2]
 
-        print(predict_result)
         #TODO: check logical correctness
         if ((casia_r and columbia_r) == True) or ((casia_r and columbiauc_r) == True) or ((columbia_r and columbiauc_r)):
-            predict_result = True
+            predict_result = "Authentic"
         else:
-            predict_result = False
+            predict_result = "Spliced"
+
+        print(predict_result)
 
         results.append(casia_r)
         results.append(columbia_r)
@@ -89,7 +90,7 @@ def login():
         if request.form.get('pass') != 'login':
             error = "invalid password"
         else:
-            cur.execute("SELECT * FROM PREDICTIONS")
+            cur.execute("SELECT * FROM PREDICTIONS ORDER BY ID DESC")
             data = cur.fetchall()
             g.db.commit()
             delete = True
