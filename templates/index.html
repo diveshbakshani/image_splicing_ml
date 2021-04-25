@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <title>ML Splicing Detector</title>
+</head>
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">ML Image Splice Detection</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="models">Models</a>
+      </li>
+    </ul>
+      <span class="navbar-text">
+      <a class="nav-link" href="admin">Admin</a>
+    </span>
+  </div>
+  </nav>
+    <div class="container">
+    <div class="row">
+      <div class="col">
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      var messages = {{ messages | safe }};
+      for (var i=0; i<messages.length; i++) {
+        alert(messages[i]);
+      }
+    </script>
+  {% endif %}
+{% endwith %}
+
+        <div class="mb-3 mt-3">
+<div class="jumbotron">
+  <h1 class="display-4">Machine Learning based Image Splicing Detection</h1>
+  <p class="lead">This is an app to predict whether an image is Authentic or Spliced based on Machine Learning.</p>
+  <hr class="my-4">
+  <p>It uses 3 datasets and a vote-based/ensemble system is used to predict authenticity of image.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="about" role="button">Learn more</a>
+  </p>
+</div>
+            <div class="alert alert-primary" role="alert" style="font-size: 30px">Upload Image to predict:</div>
+
+    <form method="POST" action="/" enctype="multipart/form-data">
+
+      <div class="form-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="file">
+          <label id="file_input_label" class="custom-file-label" for="image">Select file</label>
+        </div>
+      </div>
+        <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Name:</span>
+  </div>
+  <input type="text" class="form-control" placeholder="Your name" aria-label="Username" aria-describedby="basic-addon1" name="user" required/>
+</div>
+
+            <button class="btn btn-primary btn-lg">Upload</button>
+
+    </form>
+          <p></p>
+            </div>
+      </div>
+    </div>
+
+            <h1 class="display-4">Results:</h1>
+
+        <div class="row">
+            <div class="col">
+                <div class="navbar-nav">
+                {% if results[0] %}
+                <div class="alert alert-success text-center"  role="alert"  style="font-size: 30px"><strong>CasiaV1:</strong> Authentic</div>
+                {% else %}
+                <div class="alert alert-danger text-center"  role="alert"  style="font-size: 30px"><strong>CasiaV1:</strong> Spliced</div>
+                {% endif %}
+            </div>
+            </div>
+            <div class="col">
+                <div class="navbar-nav">
+                {% if results[1] %}
+                <div class="alert alert-success text-center"  role="alert"  style="font-size: 30px"><strong>Columbia:</strong> Authentic</div>
+                {% else %}
+                <div class="alert alert-danger text-center"  role="alert"  style="font-size: 30px"><strong>Columbia:</strong> Spliced</div>
+                {% endif %}
+            </div>
+            </div>
+            <div class="col">
+                <div class="navbar-nav">
+                {% if results[2] %}
+                <div class="alert alert-success text-center" role="alert" style="font-size: 30px"><strong>Columbia UC:</strong> Authentic</div>
+                {% else %}
+                <div class="alert alert-danger text-center" role="alert" style="font-size: 30px"><strong>Columbia UC:</strong> Spliced</div>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+ <div class="navbar-nav">
+                {% if result %}
+                <div class="alert alert-success text-center" role="alert" style="font-size: 30px"><strong>Prediction:</strong> Authentic</div>
+                {% else %}
+                <div class="alert alert-danger text-center" role="alert" style="font-size: 30px"><strong>Prediction:</strong> Spliced</div>
+                {% endif %}
+            </div>
+                </div>
+        </div>
+        </div>
+
+
+
+        </div>
+  </body>
+</html>

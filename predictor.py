@@ -25,9 +25,11 @@ def create_model(filepath):
 
 
     print(df.head())
+    # categorise as 0 1 for the output
     df.Class=pd.Categorical(df.Class)
     df['class_code'] = df.Class.cat.codes
     print(df.head())
+    # features vector creation
     features = []
     for x in range(1,19):
         features.append("R"+str(x))
@@ -65,7 +67,9 @@ def create_model(filepath):
     result = loaded_model.score(X_test, y_test)
     print("Score:", result)
 
-
+# TODO : add the preprocessing and do the rest of the steps
+#     then connect the front and back ends
+#     look for possible deployment
 
 
 if __name__ == '__main__':
