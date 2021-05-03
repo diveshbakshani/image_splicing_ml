@@ -1,30 +1,33 @@
 from program import rgbavg
 import numpy as np
 import pickle
+import os
 from sklearn.tree import DecisionTreeRegressor
 
-def predict(filename):
+def predict(filepath):
     boolarray=[True, True, True]
-    filepath = 'uploads\\'+filename
     print(filepath)
     rmean, gmean, bmean = rgbavg(filepath, 16)
     features = np.append(rmean,(gmean,bmean))
     print(features)
     features = np.array([features])
     print(np.size(features))
+    modelpath = os.path.join(os.path.expanduser('~'), 'PycharmProjects', 'image_splicing_ml', 'models', 'tanvi_model.sav')
 
-    regressor = pickle.load(open('models\\tanvi_model.sav', 'rb'))
+    regressor = pickle.load(open(modelpath, 'rb'))
     result = regressor.predict(features)
-    print(int(result))
+    #print(int(result))
 
     if int(result) == 0 :
         boolarray = [True]
     else:
         boolarray = [False]
 
-    regressor = pickle.load(open('models\\shreepad_model.sav', 'rb'))
+    modelpath = os.path.join(os.path.expanduser('~'), 'PycharmProjects', 'image_splicing_ml', 'models', 'shreepad_model.sav')
+
+    regressor = pickle.load(open(modelpath, 'rb'))
     result = regressor.predict(features)
-    print(result)
+    #print(result)
 
     if int(result) == 0 :
         boolarray.append(True)
@@ -33,13 +36,15 @@ def predict(filename):
 
     rmean, gmean, bmean = rgbavg(filepath, 18)
     features = np.append(rmean, (gmean, bmean))
-    print(features)
+    #print(features)
     features = np.array([features])
-    print(np.size(features))
+    #print(np.size(features))
 
-    regressor = pickle.load(open('models\\shiv_i_model.sav', 'rb'))
+    modelpath = os.path.join(os.path.expanduser('~'), 'PycharmProjects', 'image_splicing_ml', 'models', 'shiv_i_model.sav')
+
+    regressor = pickle.load(open(modelpath, 'rb'))
     result = regressor.predict(features)
-    print(result)
+    #print(result)
     if int(result) == 0 :
         boolarray.append(True)
     else:

@@ -5,6 +5,7 @@ import os
 
 def rgbavg(image_path,part):
     src = cv2.imread(image_path)
+    print(image_path)
     w,h,c = src.shape
     #print(w,h,c)
     red_channel = src[:, :, 2]

@@ -53,7 +53,8 @@ def home():
         # spliced = 1/False
 
         #Extract results here
-        boolarray = predict(filename)
+        filepath = os.path.join(os.path.expanduser('~'), 'PycharmProjects', 'image_splicing_ml', 'uploads', filename)
+        boolarray = predict(filepath)
         casia_r = boolarray[0]
         columbia_r = boolarray[1]
         columbiauc_r = boolarray[2]
