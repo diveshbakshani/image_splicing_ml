@@ -1,0 +1,11 @@
+---
+application:
+  name: "image-splicing-ml"
+  project: "test=app"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-image-splicing-ml"
+  routes:
+  - application_name: "image-splicing-ml"
+    paths:
+    - "/*"
